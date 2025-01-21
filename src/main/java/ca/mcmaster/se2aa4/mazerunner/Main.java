@@ -24,7 +24,6 @@ public class Main {
             // Checks for -i flag
             if(cmd.hasOption("i")) {
                 String file = cmd.getOptionValue("i");
-                //System.out.println("Testing -i flag");
 
                 logger.info("**** Reading the maze from file " + file);
                 BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -32,19 +31,16 @@ public class Main {
                 while ((line = reader.readLine()) != null) {
                     for (int idx = 0; idx < line.length(); idx++) {
                         if (line.charAt(idx) == '#') {
-                            //logger.trace("WALL ");
-                            System.out.print("WALL ");
+                            logger.trace("WALL ");
+                            
                         } else if (line.charAt(idx) == ' ') {
-                            //logger.trace("PASS ");
-                            System.out.print("PASS ");
+                            logger.trace("PASS ");
 
+                        }
                     }
+                    logger.trace(System.lineSeparator());
                 }
-                System.out.print(System.lineSeparator());
             }
-            }
-
-            //reader.close();
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
