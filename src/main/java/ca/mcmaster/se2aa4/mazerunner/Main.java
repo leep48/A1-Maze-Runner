@@ -13,6 +13,26 @@ public class Main {
     private static Options options = new Options();
     private static char[][] maze;
 
+    public static int entryFinder(int row) throws Exception {
+        for (int i = 0; i < row; i++) {
+            if (maze[i][0] != '#') {
+                return i;
+            }
+        }
+        System.out.println("Error in entry finder.");
+        throw new Exception("No entry found.");
+    }
+
+    public static int exitFinder(int row) throws Exception {
+        for (int i = 0; i < row; i++) {
+            if (maze[i][7] != '#') {
+                return i;
+            }
+        }
+        System.out.println("Error in exit finder.");
+        throw new Exception("No exit found.");
+    }
+
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
 
@@ -40,18 +60,23 @@ public class Main {
                     for (int idx = 0; idx < line.length(); idx++) {
                         if (line.charAt(idx) == '#') {
                             logger.trace("WALL ");
-                            
+                            maze[mazeRow][mazeColumn] = '#';
                         } else if (line.charAt(idx) == ' ') {
                             logger.trace("PASS ");
-
+                            maze[mazeRow][mazeColumn] = ' ';
                         }
-                        System.out.print(maze[mazeRow][mazeColumn]);
+                        //System.out.print(maze[mazeRow][mazeColumn]);
                         mazeColumn++;
                     }
                     logger.trace(System.lineSeparator());
-
+                    //System.out.println();
                     mazeRow++;
                 }
+
+                int entry = entryFinder(mazeRow);
+                //System.out.println("Entry: " + entry);
+                int exit = exitFinder(mazeRow);
+                //System.out.println("Exit: " + exit);
 
                 reader.close();
             }
