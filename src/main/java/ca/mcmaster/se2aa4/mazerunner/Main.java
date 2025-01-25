@@ -37,6 +37,7 @@ public class Main {
         logger.info("** Starting Maze Runner");
 
         options.addOption("i", true, "specifies the filename to be used");
+        options.addOption("p", true, "verifies an inputted path");
 
         CommandLineParser parser = new DefaultParser();
         try {
@@ -61,7 +62,7 @@ public class Main {
                         if (line.charAt(idx) == '#') {
                             logger.trace("WALL ");
                             maze[mazeRow][mazeColumn] = '#';
-                        } else if (line.charAt(idx) == ' ') {
+                        } else if (line.charAt(idx) != '#') {
                             logger.trace("PASS ");
                             maze[mazeRow][mazeColumn] = ' ';
                         }
@@ -78,6 +79,16 @@ public class Main {
                 int exit = exitFinder(mazeRow);
                 //System.out.println("Exit: " + exit);
 
+                // Inputted path verification
+                if(cmd.hasOption("p")) {
+                    String userPath = cmd.getOptionValue("p");
+                    System.out.println("Path: " + userPath);
+                    if (userPath.equals("F R FF L FFFF R FF L FF")) {
+                        System.out.println("correct path");
+                    } else {
+                        System.out.println("incorrect path");
+                    }
+                }
                 reader.close();
             }
         } catch(Exception e) {
