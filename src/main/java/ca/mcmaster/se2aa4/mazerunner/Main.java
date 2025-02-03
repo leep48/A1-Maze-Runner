@@ -11,8 +11,9 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger();
     private static Options options = new Options();
-    private static char[][] maze;
+    private static MazeFileReader mazeReader = new MazeFileReader();
 
+    /*
     public static int entryFinder(int row) throws Exception {
         for (int i = 0; i < row; i++) {
             if (maze[i][0] != '#') {
@@ -32,9 +33,12 @@ public class Main {
         System.out.println("Error in exit finder.");
         throw new Exception("No exit found.");
     }
+    */
 
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
+
+        Maze maze;
 
         options.addOption("i", true, "specifies the filename to be used");
         options.addOption("p", true, "verifies an inputted path");
@@ -47,36 +51,11 @@ public class Main {
             if(cmd.hasOption("i")) {
                 String file = cmd.getOptionValue("i");
 
-                logger.info("**** Reading the maze from file " + file);
-                BufferedReader reader = new BufferedReader(new FileReader(file));
+                maze = mazeReader.readMazeFromFile(file);
 
-                String line;
-                maze = new char[7][8]; // only supports the direct maze
-                int mazeRow = 0;
-                int mazeColumn;
-
-                while ((line = reader.readLine()) != null) {
-                    mazeColumn = 0;
-
-                    for (int idx = 0; idx < line.length(); idx++) {
-                        if (line.charAt(idx) == '#') {
-                            logger.trace("WALL ");
-                            maze[mazeRow][mazeColumn] = '#';
-                        } else if (line.charAt(idx) != '#') {
-                            logger.trace("PASS ");
-                            maze[mazeRow][mazeColumn] = ' ';
-                        }
-                        //System.out.print(maze[mazeRow][mazeColumn]);
-                        mazeColumn++;
-                    }
-                    logger.trace(System.lineSeparator());
-                    //System.out.println();
-                    mazeRow++;
-                }
-
-                int entry = entryFinder(mazeRow);
+                //int entry = entryFinder(maze.getTotalRows());
                 //System.out.println("Entry: " + entry);
-                int exit = exitFinder(mazeRow);
+                //int exit = exitFinder(maze.getTotalRows());
                 //System.out.println("Exit: " + exit);
 
                 // Inputted path verification
@@ -89,7 +68,6 @@ public class Main {
                         System.out.println("incorrect path");
                     }
                 }
-                reader.close();
             }
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
