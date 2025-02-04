@@ -23,17 +23,7 @@ public class Maze {
         }
     }
 
-    /*
-    public int getTotalRows() {
-        return totalRows;
-    }
-
-    public int getTotalColumns() {
-        return totalColumns;
-    }
-    */
-
-    public void entryFinder() throws Exception {
+    private void entryFinder() throws Exception {
         for (int row = 0; row < totalRows; row++) {
             if (maze[row][0] != '#') {
                 entryRow = row;
@@ -43,7 +33,7 @@ public class Maze {
         throw new Exception("No entry found.");
     }
 
-    public void exitFinder() throws Exception {
+    private void exitFinder() throws Exception {
         for (int row = 0; row < totalRows; row++) {
             if (maze[row][totalColumns - 1] != '#') {
                 exitRow = row;
@@ -51,5 +41,17 @@ public class Maze {
             }
         }
         throw new Exception("No exit found.");
+    }
+
+    public Coordinate getEntryCoordinate() {
+        return new Coordinate(entryRow, 0);
+    }
+    
+    public Coordinate getExitCoordinate() {
+        return new Coordinate(exitRow, totalColumns-1);
+    }
+
+    public char getTile(int row, int column) {
+        return maze[row][column];
     }
 }

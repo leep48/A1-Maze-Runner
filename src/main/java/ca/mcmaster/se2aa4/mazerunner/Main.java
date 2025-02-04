@@ -36,7 +36,7 @@ public class Main {
                     String userPath = cmd.getOptionValue("p");
                     System.out.println("Path: " + userPath);
                     PathValidator pathValidator = new PathValidator();
-                    pathValidator.validatePath(userPath);
+                    pathValidator.validatePath(userPath, maze);
                 }
             }
         } catch(Exception e) {

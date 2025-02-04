@@ -46,6 +46,7 @@ public class MazeFileReader {
 
         reader.close();
 
+        logger.info("**** Successfully read maze from file " + filePath);
         return new Maze(totalRows, totalColumns, mazeArray);
     }
 }

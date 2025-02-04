@@ -5,10 +5,17 @@ import org.apache.logging.log4j.Logger;
 
 public class PathValidator {
     private static final Logger logger = LogManager.getLogger();
-    
-    public void validatePath(String userPath) {
+    private PathProcessor pathProcessor;
+
+    public void validatePath(String userPath, Maze maze) {
         logger.info("**** Validating path");
-        if (userPath.equals("F R FF L FFFF R FF L FF")) {
+
+        pathProcessor = new PathProcessor(userPath);
+
+        ManualNavigator navigator = new ManualNavigator();
+        navigator.navigateMaze(maze, pathProcessor);
+
+        if (navigator.isPathValid()) {
             System.out.println("correct path");
         } else {
             System.out.println("incorrect path");
