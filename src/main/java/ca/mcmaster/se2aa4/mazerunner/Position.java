@@ -7,7 +7,7 @@ public class Position extends Coordinate {
         super(row, column);
         currentDirection = Direction.EAST; // Default direction
     }
-
+    
     public void changeDirection(TurnMove turn) {
         if (currentDirection == Direction.EAST) {
             if (turn == TurnMove.LEFT) {

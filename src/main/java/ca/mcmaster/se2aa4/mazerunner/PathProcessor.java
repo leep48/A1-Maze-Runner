@@ -17,6 +17,10 @@ public class PathProcessor {
         return new StringTokenizer(path);
     }
 
+    public String getProcessedPath() {
+        return path;
+    }
+
     public boolean isFactorized() {
         if (path.matches(".*\\d.*")) { // Classifies a path as factorized if it contains at least one digit
             return true;
