@@ -24,7 +24,7 @@ public class RightHandNavigator implements AutoNavigator{
     public void generatePath() {
         logger.info("**** Generating path using Right Hand algorithm");
         currentPosition = new Position(entryCoordinate.getRow(), entryCoordinate.getColumn());
-        direction = Direction.EAST; // Default
+        
         RightHandMove nextMove;
         StringBuilder rawPath = new StringBuilder();
 
@@ -66,6 +66,7 @@ public class RightHandNavigator implements AutoNavigator{
     private RightHandMove determineNextMove() {
         char frontTile;
         char frontRightTile;
+        direction = currentPosition.getCurrentDirection();
 
         logger.info("**** Determining next move");
 
