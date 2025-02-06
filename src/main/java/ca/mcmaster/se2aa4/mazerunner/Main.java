@@ -36,7 +36,7 @@ public class Main {
                 } else {
                     AutoNavigator autoNav = new RightHandNavigator(maze);
                     autoNav.generatePath();
-                    System.out.println(autoNav.getGeneratedPath());
+                    System.out.print(autoNav.getGeneratedPath());
                 }
             }
         } catch(Exception e) {

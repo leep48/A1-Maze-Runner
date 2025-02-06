@@ -8,7 +8,7 @@ public class RightHandNavigator implements AutoNavigator{
     private Coordinate entryCoordinate, exitCoordinate;
     private Position currentPosition;
     private Direction direction;
-    private String generatedPath;
+    private String generatedFactorizedPath;
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -28,37 +28,39 @@ public class RightHandNavigator implements AutoNavigator{
         RightHandMove nextMove;
         StringBuilder rawPath = new StringBuilder();
 
-        while ((currentPosition.getRow() != exitCoordinate.getRow()) && (currentPosition.getColumn() != exitCoordinate.getColumn())) {
-            logger.info("**** Loop");
+        logger.trace("Generating path from (" + entryCoordinate.getRow() + ", " + entryCoordinate.getColumn() + ") to ("  + exitCoordinate.getRow() + ", " + exitCoordinate.getColumn() + ").");
+
+        logger.trace("Current starting point: (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
+
+        while ((currentPosition.getRow() != exitCoordinate.getRow()) || (currentPosition.getColumn() != exitCoordinate.getColumn())) {
+            logger.trace("**** Loop");
             nextMove = determineNextMove();
             if (nextMove == RightHandMove.FORWARD) {
                 currentPosition.moveForward(1);
                 rawPath.append('F');
-                logger.info("Move forward. Path: " + rawPath.toString());
+                logger.trace("Move forward. Path: " + rawPath.toString());
             } else if (nextMove == RightHandMove.TURN_LEFT) {
                 currentPosition.changeDirection(TurnMove.LEFT);
                 rawPath.append('L');
-                logger.info("Turn left. Path: " + rawPath.toString());
+                logger.trace("Turn left. Path: " + rawPath.toString());
             } else if (nextMove == RightHandMove.FORWARD_TURN_RIGHT) {
                 currentPosition.moveForward(1);
                 currentPosition.changeDirection(TurnMove.RIGHT);
                 rawPath.append('F');
                 rawPath.append('R');
-                logger.info("Move forward and turn right. Path: " + rawPath.toString());
+                logger.trace("Move forward and turn right. Path: " + rawPath.toString());
             }
         }
 
         logger.info("Path generated: " + rawPath.toString());
 
-        System.out.println(rawPath.toString());
-
         PathProcessor pathProcessor = new PathProcessor(rawPath.toString());
         pathProcessor.toFactorizedForm();
-        generatedPath = pathProcessor.getProcessedPath();
+        generatedFactorizedPath = pathProcessor.getProcessedPath();
     }
 
     public String getGeneratedPath() {
-        return generatedPath;
+        return generatedFactorizedPath;
     }
 
     private RightHandMove determineNextMove() {

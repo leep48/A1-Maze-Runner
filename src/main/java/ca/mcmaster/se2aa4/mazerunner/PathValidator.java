@@ -16,9 +16,9 @@ public class PathValidator {
         navigator.navigateMaze(maze, pathProcessor);
 
         if (navigator.isPathValid()) {
-            System.out.println("correct path");
+            System.out.print("correct path");
         } else {
-            System.out.println("incorrect path");
+            System.out.print("incorrect path");
         }
     }
 }
