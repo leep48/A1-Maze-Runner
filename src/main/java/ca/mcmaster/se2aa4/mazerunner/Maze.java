@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Maze {
     private static final Logger logger = LogManager.getLogger();
-    private static char[][] maze;
+    private char[][] maze;
     private int totalRows, totalColumns;
     private int entryRow, exitRow;
 

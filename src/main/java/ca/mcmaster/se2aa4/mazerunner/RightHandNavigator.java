@@ -16,8 +16,8 @@ public class RightHandNavigator implements AutoNavigator{
         this.maze = maze;
         entryCoordinate = maze.getEntryCoordinate();
         exitCoordinate = maze.getExitCoordinate();
-        logger.info("**** Entry: " + entryCoordinate.getRow() + ", " + entryCoordinate.getColumn());
-        logger.info("**** Exit: " + exitCoordinate.getRow() + ", " + exitCoordinate.getColumn());
+        logger.trace("**** Entry: " + entryCoordinate.getRow() + ", " + entryCoordinate.getColumn());
+        logger.trace("**** Exit: " + exitCoordinate.getRow() + ", " + exitCoordinate.getColumn());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class RightHandNavigator implements AutoNavigator{
             }
         }
 
-        logger.info("Path generated: " + rawPath.toString());
+        logger.trace("Path generated: " + rawPath.toString());
 
         PathProcessor pathProcessor = new PathProcessor(rawPath.toString());
         pathProcessor.toFactorizedForm();
@@ -68,7 +68,7 @@ public class RightHandNavigator implements AutoNavigator{
         char frontRightTile;
         direction = currentPosition.getCurrentDirection();
 
-        logger.info("**** Determining next move");
+        logger.trace("**** Determining next move in direction: " + direction);
 
         if (direction == Direction.NORTH) {
             frontTile = maze.getTile(currentPosition.getRow() - 1, currentPosition.getColumn());

@@ -19,21 +19,20 @@ public class ManualNavigator {
         exitCoordinate = maze.getExitCoordinate();
 
         if (!pathProcessor.isFactorized()) {
-            logger.info("**** Converting path to factorized form");
             pathProcessor.toFactorizedForm();
-            logger.info("**** Successfully converted path to factorized form");
         }
 
+        // Initializing the current position with the entry coordinates
         currentPosition = new Position(entryCoordinate.getRow(), entryCoordinate.getColumn());
 
         tokenizedPath = pathProcessor.tokenizePath();
 
         try {
-            logger.info("**** Navigating maze starting at (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
+            logger.trace("**** Navigating maze starting at (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
 
             while (tokenizedPath.hasMoreTokens()) {
                 String move = tokenizedPath.nextToken();
-                logger.info("**** Current position at (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
+                logger.trace("**** Current position at (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
     
                 if (move.length() == 2) {
                     if (Character.isDigit(move.charAt(0))) {
@@ -75,12 +74,14 @@ public class ManualNavigator {
                 } else {
                     throw new Exception(); // Illegal move
                 }
-                logger.info("**** Move successful: " + move);
+                logger.trace("**** Move successful: " + move);
             }
 
-            logger.info("**** Final position: (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
+            logger.trace("**** Final position: (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
 
-            logger.info("**** Reached end of path");
+            logger.info("**** Successfully navigated to the end of the given path");
+
+            // Checks if the current position is at the exit coordinates
             if ((currentPosition.getRow() == exitCoordinate.getRow()) && (currentPosition.getColumn() == exitCoordinate.getColumn())) {
                 validPath = true;
             }
@@ -101,7 +102,7 @@ public class ManualNavigator {
     
         // Check if the move is in the NORTH or SOUTH direction (vertical movement)
         if (currentDirection == Direction.NORTH || currentDirection == Direction.SOUTH) {
-            logger.info("**** Checking North/South moving " + spaces + " spaces");
+            logger.trace("**** Checking North/South moving " + spaces + " spaces");
             for (int i = 1; i <= spaces; i++) {
                 // Check each row based on the current direction (North or South)
                 int newRow;
@@ -111,7 +112,7 @@ public class ManualNavigator {
                 } else {
                     newRow = row + i;
                 }
-                logger.info("**** Checking Tile at (" + newRow + ", " + col + ")");
+                logger.trace("**** Checking Tile at (" + newRow + ", " + col + ")");
 
                 if (maze.getTile(newRow, col) == '#') {
                     return false; // Invalid move if a wall is encountered
@@ -120,7 +121,7 @@ public class ManualNavigator {
         }
         // Check if the move is in the EAST or WEST direction (horizontal movement)
         else if (currentDirection == Direction.EAST || currentDirection == Direction.WEST) {
-            logger.info("**** Checking East/West  moving " + spaces + " spaces");
+            logger.trace("**** Checking East/West  moving " + spaces + " spaces");
             for (int i = 1; i <= spaces; i++) {
                 // Check each column based on the current direction (East or West)
                 int newCol;
@@ -130,7 +131,7 @@ public class ManualNavigator {
                 } else {
                     newCol = col - i;
                 }
-                logger.info("**** Checking Tile at (" + row + ", " + newCol + ")");
+                logger.trace("**** Checking Tile at (" + row + ", " + newCol + ")");
 
                 if (maze.getTile(row, newCol) == '#') {
                     return false; // Invalid move if a wall is encountered

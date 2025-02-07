@@ -9,12 +9,12 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
     private static Options options = new Options();
     private static MazeFileReader mazeReader = new MazeFileReader();
+    private static Maze maze;
 
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
 
-        Maze maze;
-
+        // Command line flag options
         options.addOption("i", true, "specifies the filename to be used");
         options.addOption("p", true, "verifies an inputted path");
 
@@ -30,10 +30,12 @@ public class Main {
 
                 // Inputted path verification
                 if(cmd.hasOption("p")) {
+                    logger.info("**** Validating path");
                     String userPath = cmd.getOptionValue("p");
                     PathValidator pathValidator = new PathValidator();
                     pathValidator.validatePath(userPath, maze);
                 } else {
+                    logger.info("**** Computing path");
                     AutoNavigator autoNav = new RightHandNavigator(maze);
                     autoNav.generatePath();
                     System.out.print(autoNav.getGeneratedPath());
@@ -42,8 +44,6 @@ public class Main {
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
-        logger.info("**** Computing path");
-        logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }
 }

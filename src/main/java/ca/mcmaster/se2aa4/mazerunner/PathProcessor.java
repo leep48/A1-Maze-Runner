@@ -1,7 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.StringTokenizer;
-import java.util.regex.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,6 +8,7 @@ public class PathProcessor {
     private String path;
     private static final Logger logger = LogManager.getLogger();
 
+    // Constructor
     public PathProcessor(String path) {
         this.path = path;
     }
@@ -28,13 +28,15 @@ public class PathProcessor {
         return false;
     }
 
+    // Converts a canonical form path to a factorized form path
     public void toFactorizedForm() {
         if (path == null || path.isEmpty()) {
             logger.error("**** Error: Path is null or empty!");
             return;
         }
-    
-        logger.info("**** Original path before factorization: " + path);
+
+        logger.info("**** Converting path to factorized form");
+        logger.trace("**** Original path before factorization: " + path);
         
         StringBuilder factorizedPath = new StringBuilder();
         path = path.replace(" ", ""); // Remove spaces before processing
@@ -62,7 +64,7 @@ public class PathProcessor {
         }
     
         path = factorizedPath.toString();
-        logger.info("**** Factorized path: " + path);
+        logger.trace("**** Factorized path: " + path);
     }
     
 }
