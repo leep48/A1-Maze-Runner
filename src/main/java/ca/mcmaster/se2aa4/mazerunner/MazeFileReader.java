@@ -23,9 +23,12 @@ public class MazeFileReader {
         while ((line = reader.readLine()) != null) {
             mazeLines.add(line);
         }
+        logger.debug("Successfully converted maze into String array");
 
         int totalRows = mazeLines.size();
         int totalColumns = mazeLines.get(0).length();
+
+        logger.debug("This maze has " + totalRows + " rows and " + totalColumns + " columns.");
 
         char[][] mazeArray = new char[totalRows][totalColumns];
 

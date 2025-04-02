@@ -13,6 +13,7 @@ public class ManualNavigator {
     private static final Logger logger = LogManager.getLogger();
     
     public void navigateMaze(Maze maze, PathProcessor pathProcessor) {
+        int moveCount = 0; // Initialize/reset moveCount
         validPath = false; // Initialize as an invalid path (default)
 
         entryCoordinate = maze.getEntryCoordinate();
@@ -33,47 +34,38 @@ public class ManualNavigator {
             while (tokenizedPath.hasMoreTokens()) {
                 String move = tokenizedPath.nextToken();
                 logger.trace("**** Current position at (" + currentPosition.getRow() + ", " + currentPosition.getColumn() + ")");
-    
-                if (move.length() == 2) {
-                    if (Character.isDigit(move.charAt(0))) {
-                        if (move.charAt(1) == 'F') {
-                            if (validMoveChecker(maze, Character.getNumericValue(move.charAt(0)))) { // Passes the maze object and the number of spaces moved
-                                currentPosition.moveForward(Character.getNumericValue(move.charAt(0)));
-                            } else {
-                                logger.info("**** Encountered a wall");
-                                return; // A wall is encountered
-                            }
-                        } else if (move.charAt(1) == 'L') {
-                            for (int i = 0; i < Character.getNumericValue(move.charAt(0)); i++) {
-                                currentPosition.changeDirection(TurnMove.LEFT);
-                            }
-                        } else if (move.charAt(1) == 'R') {
-                            for (int i = 0; i < Character.getNumericValue(move.charAt(0)); i++) {
-                                currentPosition.changeDirection(TurnMove.RIGHT);
-                            }
-                        } else {
-                            throw new Exception(); // Illegal move
-                        }
+
+                // Retrieves type of move (F, L, or R)
+                char moveType = move.charAt(move.length() - 1);
+                logger.trace("Retrieved move type of: " + moveType);
+
+                // Retrieves amount of times move is executed
+                if (move.length() >= 2) {
+                    moveCount = Integer.parseInt(move.substring(0, move.length() - 1));
+                } else {
+                    moveCount = 1;
+                }
+                logger.trace("Retrieved move count of: " + moveCount);
+
+                if (moveType == 'F') {
+                    if (validMoveChecker(maze, moveCount)) { // Passes the maze object and the number of spaces moved
+                        currentPosition.moveForward(moveCount);
                     } else {
-                        throw new Exception(); // Illegal move
+                        logger.info("**** Encountered a wall");
+                        return; // A wall is encountered
                     }
-                } else if (move.length() == 1) {
-                    if (move.charAt(0) == 'F') {
-                        if (validMoveChecker(maze, 1)) {
-                            currentPosition.moveForward(1);
-                        } else {
-                            return; // A wall is encountered
-                        }
-                    } else if (move.charAt(0) == 'L') {
+                } else if (moveType == 'L') {
+                    for (int i = 0; i < moveCount; i++) {
                         currentPosition.changeDirection(TurnMove.LEFT);
-                    } else if (move.charAt(0) == 'R'){
+                    }
+                } else if (moveType == 'R') {
+                    for (int i = 0; i < moveCount; i++) {
                         currentPosition.changeDirection(TurnMove.RIGHT);
-                    } else {
-                        throw new Exception(); // Illegal move
                     }
                 } else {
-                    throw new Exception(); // Illegal move
+                    throw new Exception(); // Throws exception for an invalid move type
                 }
+
                 logger.trace("**** Move successful: " + move);
             }
 
