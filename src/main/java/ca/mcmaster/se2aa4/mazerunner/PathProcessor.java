@@ -1,6 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.util.StringTokenizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,10 +10,6 @@ public class PathProcessor {
     // Constructor
     public PathProcessor(String path) {
         this.path = path;
-    }
-
-    public StringTokenizer tokenizePath() {
-        return new StringTokenizer(path);
     }
 
     public String getProcessedPath() {

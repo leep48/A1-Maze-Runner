@@ -1,9 +1,13 @@
 import org.junit.jupiter.api.Test;
 
+import ca.mcmaster.se2aa4.mazerunner.CommandManager;
+import ca.mcmaster.se2aa4.mazerunner.Coordinate;
 import ca.mcmaster.se2aa4.mazerunner.ManualNavigator;
 import ca.mcmaster.se2aa4.mazerunner.Maze;
 import ca.mcmaster.se2aa4.mazerunner.MazeFileReader;
+import ca.mcmaster.se2aa4.mazerunner.MoveCommandManagerCreator;
 import ca.mcmaster.se2aa4.mazerunner.PathProcessor;
+import ca.mcmaster.se2aa4.mazerunner.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,9 +22,16 @@ public class MazeExamplePathValidationTest {
         try {
             MazeFileReader mazeReader = new MazeFileReader();
             Maze maze = mazeReader.readMazeFromFile(filePath);
-            PathProcessor pathProcessor = new PathProcessor(userInputtedPath);
+
+            Coordinate startCoordinate = maze.getEntryCoordinate();
+            Position currentPosition = new Position(startCoordinate.getRow(), startCoordinate.getColumn());
+
+            MoveCommandManagerCreator commandManagerCreator = new MoveCommandManagerCreator(new PathProcessor(userInputtedPath), currentPosition);
+            CommandManager moveCommandManager = commandManagerCreator.createCommandManager();
+
             ManualNavigator navigator = new ManualNavigator();
-            navigator.navigateMaze(maze, pathProcessor);
+            navigator.navigateMaze(maze, moveCommandManager, currentPosition);
+
             isPathValid = navigator.isPathValid();
         } catch (Exception e) {
             isPathValid = false;
@@ -38,9 +49,16 @@ public class MazeExamplePathValidationTest {
         try {
             MazeFileReader mazeReader = new MazeFileReader();
             Maze maze = mazeReader.readMazeFromFile(filePath);
-            PathProcessor pathProcessor = new PathProcessor(userInputtedPath);
+
+            Coordinate startCoordinate = maze.getEntryCoordinate();
+            Position currentPosition = new Position(startCoordinate.getRow(), startCoordinate.getColumn());
+
+            MoveCommandManagerCreator commandManagerCreator = new MoveCommandManagerCreator(new PathProcessor(userInputtedPath), currentPosition);
+            CommandManager moveCommandManager = commandManagerCreator.createCommandManager();
+
             ManualNavigator navigator = new ManualNavigator();
-            navigator.navigateMaze(maze, pathProcessor);
+            navigator.navigateMaze(maze, moveCommandManager, currentPosition);
+
             isPathValid = navigator.isPathValid();
         } catch (Exception e) {
             isPathValid = false;
@@ -60,9 +78,16 @@ public class MazeExamplePathValidationTest {
         try {
             MazeFileReader mazeReader = new MazeFileReader();
             Maze maze = mazeReader.readMazeFromFile(filePath);
-            PathProcessor pathProcessor = new PathProcessor(userInputtedPath);
+
+            Coordinate startCoordinate = maze.getEntryCoordinate();
+            Position currentPosition = new Position(startCoordinate.getRow(), startCoordinate.getColumn());
+
+            MoveCommandManagerCreator commandManagerCreator = new MoveCommandManagerCreator(new PathProcessor(userInputtedPath), currentPosition);
+            CommandManager moveCommandManager = commandManagerCreator.createCommandManager();
+
             ManualNavigator navigator = new ManualNavigator();
-            navigator.navigateMaze(maze, pathProcessor);
+            navigator.navigateMaze(maze, moveCommandManager, currentPosition);
+
             isPathValid = navigator.isPathValid();
         } catch (Exception e) {
             isPathValid = false;
@@ -80,9 +105,16 @@ public class MazeExamplePathValidationTest {
         try {
             MazeFileReader mazeReader = new MazeFileReader();
             Maze maze = mazeReader.readMazeFromFile(filePath);
-            PathProcessor pathProcessor = new PathProcessor(userInputtedPath);
+
+            Coordinate startCoordinate = maze.getEntryCoordinate();
+            Position currentPosition = new Position(startCoordinate.getRow(), startCoordinate.getColumn());
+
+            MoveCommandManagerCreator commandManagerCreator = new MoveCommandManagerCreator(new PathProcessor(userInputtedPath), currentPosition);
+            CommandManager moveCommandManager = commandManagerCreator.createCommandManager();
+
             ManualNavigator navigator = new ManualNavigator();
-            navigator.navigateMaze(maze, pathProcessor);
+            navigator.navigateMaze(maze, moveCommandManager, currentPosition);
+
             isPathValid = navigator.isPathValid();
         } catch (Exception e) {
             isPathValid = false;
@@ -139,9 +171,16 @@ public class MazeExamplePathValidationTest {
         try {
             MazeFileReader mazeReader = new MazeFileReader();
             Maze maze = mazeReader.readMazeFromFile(filePath);
-            PathProcessor pathProcessor = new PathProcessor(userInputtedPath);
+
+            Coordinate startCoordinate = maze.getEntryCoordinate();
+            Position currentPosition = new Position(startCoordinate.getRow(), startCoordinate.getColumn());
+
+            MoveCommandManagerCreator commandManagerCreator = new MoveCommandManagerCreator(new PathProcessor(userInputtedPath), currentPosition);
+            CommandManager moveCommandManager = commandManagerCreator.createCommandManager();
+
             ManualNavigator navigator = new ManualNavigator();
-            navigator.navigateMaze(maze, pathProcessor);
+            navigator.navigateMaze(maze, moveCommandManager, currentPosition);
+
             isPathValid = navigator.isPathValid();
         } catch (Exception e) {
             isPathValid = false;
@@ -159,9 +198,16 @@ public class MazeExamplePathValidationTest {
         try {
             MazeFileReader mazeReader = new MazeFileReader();
             Maze maze = mazeReader.readMazeFromFile(filePath);
-            PathProcessor pathProcessor = new PathProcessor(userInputtedPath);
+
+            Coordinate startCoordinate = maze.getEntryCoordinate();
+            Position currentPosition = new Position(startCoordinate.getRow(), startCoordinate.getColumn());
+
+            MoveCommandManagerCreator commandManagerCreator = new MoveCommandManagerCreator(new PathProcessor(userInputtedPath), currentPosition);
+            CommandManager moveCommandManager = commandManagerCreator.createCommandManager();
+
             ManualNavigator navigator = new ManualNavigator();
-            navigator.navigateMaze(maze, pathProcessor);
+            navigator.navigateMaze(maze, moveCommandManager, currentPosition);
+
             isPathValid = navigator.isPathValid();
         } catch (Exception e) {
             isPathValid = false;
@@ -169,4 +215,5 @@ public class MazeExamplePathValidationTest {
 
         assertFalse(isPathValid);
     }
+    
 }
