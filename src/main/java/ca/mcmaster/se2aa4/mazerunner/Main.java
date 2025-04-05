@@ -37,6 +37,7 @@ public class Main {
                 } else {
                     logger.info("**** Computing path");
                     AutoNavigator autoNav = new RightHandNavigator(maze);
+                    autoNav.addObserver(new MoveLogger());
                     autoNav.generatePath();
                     System.out.print(autoNav.getGeneratedPath());
                 }
