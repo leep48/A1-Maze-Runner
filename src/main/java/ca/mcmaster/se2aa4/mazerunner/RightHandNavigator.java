@@ -3,9 +3,6 @@ package ca.mcmaster.se2aa4.mazerunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class RightHandNavigator implements AutoNavigator{
     private Maze maze;
     private Coordinate entryCoordinate, exitCoordinate;
@@ -13,8 +10,6 @@ public class RightHandNavigator implements AutoNavigator{
     private Direction direction;
     private String generatedFactorizedPath;
     private List<NavigationObserver> observers = new ArrayList<>();
-
-    private static final Logger logger = LogManager.getLogger();
 
     public RightHandNavigator(Maze maze) {
         this.maze = maze;
@@ -34,16 +29,12 @@ public class RightHandNavigator implements AutoNavigator{
 
     @Override
     public void generatePath() {
-        logger.info("**** Generating path using Right Hand algorithm");
         currentPosition = new Position(entryCoordinate.getRow(), entryCoordinate.getColumn());
         
         RightHandMove nextMove = null;
         StringBuilder rawPath = new StringBuilder();
 
-        logger.debug("Generating path from (" + entryCoordinate.getRow() + ", " + entryCoordinate.getColumn() + ") to ("  + exitCoordinate.getRow() + ", " + exitCoordinate.getColumn() + ").");
-
         while ((currentPosition.getRow() != exitCoordinate.getRow()) || (currentPosition.getColumn() != exitCoordinate.getColumn())) {
-            //logger.trace("**** Loop");
             nextMove = determineNextMove();
             if (nextMove == RightHandMove.FORWARD) {
                 currentPosition.moveForward(1);
